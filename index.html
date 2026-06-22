@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oswa Saleem — Cybersecurity & AI</title>
+<style>
+  :root{
+    --bg: #0b0f0e;
+    --panel: #111816;
+    --line: #1f2c28;
+    --text: #e8ede9;
+    --muted: #8aa39a;
+    --accent: #5ee0a0;
+    --accent-dim: #2c5d49;
+    --warn: #e0c25e;
+    --mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    --sans: "Inter", -apple-system, "Segoe UI", sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+
+  .wrap{max-width:880px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- HEADER / CASE FILE ---------- */
+  header{
+    border-bottom:1px solid var(--line);
+    padding:48px 0 32px;
+  }
+  .case-tag{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.12em;
+    color:var(--accent);
+    text-transform:uppercase;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin-bottom:18px;
+  }
+  .case-tag::before{
+    content:"●";
+    color:var(--warn);
+    font-size:10px;
+  }
+  h1{
+    font-size:clamp(34px,5vw,52px);
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.05;
+  }
+  .role{
+    font-family:var(--mono);
+    color:var(--muted);
+    margin-top:10px;
+    font-size:15px;
+  }
+  .intro{
+    margin-top:22px;
+    max-width:640px;
+    color:#c9d4ce;
+    font-size:16px;
+  }
+  .meta-row{
+    margin-top:24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--muted);
+  }
+  .meta-row span b{color:var(--text); font-weight:500;}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:44px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .sec-head{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .sec-head::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  /* AI interests */
+  .interest-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:18px;
+  }
+  .card h3{
+    font-size:15px;
+    margin-bottom:8px;
+    color:var(--text);
+  }
+  .card p{font-size:13.5px; color:var(--muted);}
+
+  /* Skills */
+  .skill-block{margin-bottom:18px;}
+  .skill-block h4{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--warn);
+    margin-bottom:10px;
+    letter-spacing:.04em;
+  }
+  .pill-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .pill{
+    font-family:var(--mono);
+    font-size:12.5px;
+    padding:5px 10px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    color:#c9d4ce;
+    background:var(--panel);
+  }
+
+  /* Projects */
+  .project{
+    display:grid;
+    grid-template-columns:28px 1fr;
+    gap:14px;
+    padding:18px 0;
+    border-top:1px dashed var(--line);
+  }
+  .project:first-child{border-top:none;}
+  .project .idx{
+    font-family:var(--mono);
+    color:var(--accent-dim);
+    font-size:13px;
+    padding-top:2px;
+  }
+  .project h3{font-size:16px; margin-bottom:6px;}
+  .project p{font-size:13.5px; color:var(--muted); margin-bottom:8px;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:6px;}
+  .tag{
+    font-family:var(--mono);
+    font-size:11px;
+    padding:2px 8px;
+    border-radius:3px;
+    background:var(--accent-dim);
+    color:#bdf2da;
+  }
+
+  /* Achievements */
+  .ach-list{list-style:none;}
+  .ach-list li{
+    padding:10px 0;
+    border-top:1px dashed var(--line);
+    font-size:14px;
+    display:flex;
+    gap:10px;
+  }
+  .ach-list li:first-child{border-top:none;}
+  .ach-list li .glyph{color:var(--warn);}
+
+  /* Contact */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:14px;
+  }
+  .contact-item{
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:16px;
+    background:var(--panel);
+  }
+  .contact-item .label{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-bottom:6px;
+  }
+  .contact-item .value{font-size:14.5px;}
+
+  footer{
+    padding:28px 0 60px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    text-align:center;
+  }
+
+  @media (max-width:600px){
+    header{padding:36px 0 26px;}
+    section{padding:32px 0;}
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .card, .project, .contact-item{transition:border-color .2s ease;}
+    .card:hover, .contact-item:hover{border-color:var(--accent-dim);}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="case-tag">case file // open</div>
+    <h1>Oswa Saleem</h1>
+    <div class="role">Cybersecurity Undergrad · Digital Forensics · AI Security</div>
+    <p class="intro">
+      I like figuring out how systems break, then making them harder to break.
+      Most of my time goes into digital forensics, CTFs, and the place where AI
+      and security overlap — think adversarial attacks and how models can be
+      tricked, not just how they perform.
+    </p>
+    <div class="meta-row">
+      <span>Location: <b>Islamabad, Pakistan</b></span>
+      <span>Status: <b>BS Cyber Security, FAST-NUCES</b></span>
+      <span>Focus: <b>AI-Based 3D Scene Reconstruction (PMW)</b></span>
+    </div>
+  </header>
+
+  <section id="ai-interests">
+    <div class="sec-head">AI Interests</div>
+    <div class="interest-grid">
+      <div class="card">
+        <h3>Adversarial ML</h3>
+        <p>How small, deliberate perturbations fool models — and what that means for systems we're told to trust.</p>
+      </div>
+      <div class="card">
+        <h3>AI for Forensics</h3>
+        <p>Using ML to speed up memory/disk analysis instead of manually hunting through dumps for hours.</p>
+      </div>
+      <div class="card">
+        <h3>3D Scene Reconstruction</h3>
+        <p>Current focus for PMW — turning 2D inputs into spatial understanding, and where that intersects with security (e.g. spoofing, sensor trust).</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head">Skills</div>
+
+    <div class="skill-block">
+      <h4>Languages</h4>
+      <div class="pill-row">
+        <span class="pill">Python</span>
+        <span class="pill">C++</span>
+        <span class="pill">Assembly</span>
+        <span class="pill">HTML/CSS</span>
+      </div>
+    </div>
+
+    <div class="skill-block">
+      <h4>Security</h4>
+      <div class="pill-row">
+        <span class="pill">Digital Forensics</span>
+        <span class="pill">Ethical Hacking</span>
+        <span class="pill">CTF (Web, Crypto, RE, Stego)</span>
+        <span class="pill">Network Security</span>
+      </div>
+    </div>
+
+    <div class="skill-block">
+      <h4>Tools</h4>
+      <div class="pill-row">
+        <span class="pill">Volatility 3</span>
+        <span class="pill">Wireshark</span>
+        <span class="pill">Burp Suite</span>
+        <span class="pill">Autopsy</span>
+        <span class="pill">FTK Imager</span>
+        <span class="pill">Belkasoft</span>
+        <span class="pill">Kali Linux</span>
+        <span class="pill">Cisco (VLSM/DHCP/NAT/ACLs)</span>
+      </div>
+    </div>
+
+    <div class="skill-block">
+      <h4>Emerging</h4>
+      <div class="pill-row">
+        <span class="pill">AI Security</span>
+        <span class="pill">Metaverse Dev</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head">Projects</div>
+
+    <div class="project">
+      <div class="idx">01</div>
+      <div>
+        <h3>Memory Forensics CTF — Case DF-MEM-2026-007</h3>
+        <p>Analyzed a Windows 7 memory dump with Volatility 3, recovered three flags, and wrote a full forensic report from process trees to timeline reconstruction.</p>
+        <div class="tag-row">
+          <span class="tag">Volatility 3</span>
+          <span class="tag">Memory Forensics</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="idx">02</div>
+      <div>
+        <h3>MitoWorld — Metaverse Environment</h3>
+        <p>Built during an international research exchange at UTeM, Malaysia — an immersive Metaverse space representing Pakistani culture for cross-cultural collaboration. Won 1st place globally.</p>
+        <div class="tag-row">
+          <span class="tag">Metaverse</span>
+          <span class="tag">Cross-cultural Research</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="idx">03</div>
+      <div>
+        <h3>Computer Networks Simulation</h3>
+        <p>Multi-protocol network topology in Cisco using VLSM, DHCP, NAT, and ACLs, with routing protocols and redistribution.</p>
+        <div class="tag-row">
+          <span class="tag">Cisco</span>
+          <span class="tag">Routing</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="idx">04</div>
+      <div>
+        <h3>Airport Navigation System</h3>
+        <p>Flight tracking, booking, and cancellation system with visual route mapping, using Dijkstra's algorithm for pathfinding.</p>
+        <div class="tag-row">
+          <span class="tag">Algorithms</span>
+          <span class="tag">C++</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="idx">05</div>
+      <div>
+        <h3>Assembly-Level Pacman</h3>
+        <p>Low-level Pacman implementation in Assembly — graphics handling and game logic at the system level.</p>
+        <div class="tag-row">
+          <span class="tag">Assembly</span>
+          <span class="tag">Systems Programming</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="achievements">
+    <div class="sec-head">Achievements</div>
+    <ul class="ach-list">
+      <li><span class="glyph">▸</span> 1st Place — International Research Program, UTeM Malaysia (MitoWorld, global competition)</li>
+      <li><span class="glyph">▸</span> 3rd Place — CTF NACTA, among 100+ national teams</li>
+      <li><span class="glyph">▸</span> 2nd Place — Nascon Chamber of Cipher, FAST-NUCES</li>
+      <li><span class="glyph">▸</span> Security Analyst Intern — ISPR, Rawalpindi</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <div class="sec-head">Contact</div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="label">Email</div>
+        <div class="value"><a href="mailto:oswasaleem31@gmail.com">oswasaleem31@gmail.com</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="label">LinkedIn</div>
+        <div class="value"><a href="https://www.linkedin.com/in/oswa-saleem" target="_blank" rel="noopener">Oswa Saleem</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="label">GitHub</div>
+        <div class="value"><a href="https://github.com/" target="_blank" rel="noopener">github.com/OswaSaleem</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="label">Location</div>
+        <div class="value">Islamabad, Pakistan</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Built for PMW Day 1 — AI-Based 3D Scene Reconstruction track.
+  </footer>
+
+</div>
+
+</body>
+</html>
